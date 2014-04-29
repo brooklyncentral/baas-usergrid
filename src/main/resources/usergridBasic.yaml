@@ -4,6 +4,7 @@ services:
   brooklyn.config:
     version: 7.0.53
     wars.root: classpath://ROOT.war
+    usergridPropertiesTemplateUrl: classpath://usergrid-basic.properties
     cassandraUrl: $brooklyn:component("theCassandraNode").attributeWhenReady("datastore.url") 
 - serviceType: brooklyn.entity.nosql.cassandra.CassandraNode
   id: theCassandraNode
