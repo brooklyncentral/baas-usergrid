@@ -5,6 +5,8 @@ import brooklyn.entity.basic.ConfigKeys;
 import brooklyn.entity.nosql.cassandra.CassandraDatacenter;
 import brooklyn.entity.proxying.ImplementedBy;
 import brooklyn.entity.webapp.tomcat.TomcatServer;
+import brooklyn.event.AttributeSensor;
+import brooklyn.event.basic.Sensors;
 import brooklyn.util.flags.SetFromFlag;
 
 @ImplementedBy(UsergridTomcatServerImpl.class)
@@ -32,6 +34,12 @@ public interface UsergridTomcatServer extends TomcatServer {
     public static final ConfigKey<String> USERGRID_PROPERTIES_TEMPLATE_URL = ConfigKeys.newStringConfigKey(
         "usergrid.properties.templateUrl", 
         "Template file (in freemarker format) for the usergrid properties file", null);
+    
+    public static final AttributeSensor<String> STATUS_URL =
+        Sensors.newStringSensor("usergrid.statusUrl", "URL where usergrid status is available");
+    
+    public static final AttributeSensor<Boolean> CASSANDRA_AVAILABLE =
+        Sensors.newBooleanSensor("usergrid.cassandraAvailable", "Whether the cassandra node is available");
  
     /**
      * @return the "URL" in format host:port

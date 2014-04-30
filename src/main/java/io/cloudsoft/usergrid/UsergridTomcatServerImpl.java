@@ -6,14 +6,21 @@ import brooklyn.entity.basic.Attributes;
 import brooklyn.entity.basic.Entities;
 import brooklyn.entity.nosql.cassandra.CassandraDatacenter;
 import brooklyn.entity.webapp.tomcat.TomcatServerImpl;
+import brooklyn.event.feed.http.HttpFeed;
+import brooklyn.event.feed.http.HttpPollConfig;
+import brooklyn.event.feed.http.HttpValueFunctions;
+import brooklyn.location.access.BrooklynAccessUtils;
 import brooklyn.util.text.Strings;
 import brooklyn.util.text.TemplateProcessor;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.net.HostAndPort;
 
 public class UsergridTomcatServerImpl extends TomcatServerImpl implements UsergridTomcatServer {
 
+    private volatile HttpFeed httpFeed;
+    
     @Override
     public void init() {
         super.init();
@@ -41,6 +48,27 @@ public class UsergridTomcatServerImpl extends TomcatServerImpl implements Usergr
         } else {
             return Strings.removeFromStart(url, "cassandra://");
         }
+    }
+    
+    @Override
+    public void connectSensors() {
+        super.connectSensors();
+        HostAndPort hostAndPort = BrooklynAccessUtils.getBrooklynAccessibleAddress(this, getAttribute(Attributes.HTTP_PORT));
+        String statusUrl = String.format("http://%s:%s/status", hostAndPort.getHostText(), hostAndPort.getPort());
+        setAttribute(STATUS_URL, statusUrl);
+        httpFeed = HttpFeed.builder()
+            .entity(this)
+            .period(2000)
+            .baseUri(statusUrl)
+            .poll(new HttpPollConfig<Boolean>(CASSANDRA_AVAILABLE)
+                    .onSuccess(HttpValueFunctions.jsonContents(new String[] {"status","cassandraAvailable"}, Boolean.class)))
+            .build();
+    }
+    
+    @Override
+    public void disconnectSensors() {
+        super.disconnectSensors();
+        if (httpFeed != null) httpFeed.stop();
     }
     
     @Override

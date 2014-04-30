@@ -13,10 +13,21 @@ services:
   id: theCassandraNode
 
 location: localhost
+
 ## Replace the line above with the following to deploy to softlayer
+
 #location:
 #  jclouds:softlayer:
 #    region: ams01 # Amsterdam
 ## NOTE: You will also need the following lines in your ~/.brooklyn/brooklyn.properties
 ## brooklyn.location.jclouds.softlayer.identity=<your softlayer login name>
 ## brooklyn.location.jclouds.softlayer.credential=<your softlayer authentication key>
+
+## Or to Amazon EC2
+
+#location:
+#  jclouds:aws-ec2:
+#    region: us-west-1
+## NOTE: You will also need the following lines in your ~/.brooklyn/brooklyn.properties
+## brooklyn.location.jclouds.aws-ec2.identity=<your aws access key id>
+## brooklyn.location.jclouds.aws-ec2.credential=<your aws secret access key>
