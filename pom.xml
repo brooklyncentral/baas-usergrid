@@ -7,36 +7,10 @@
   <version>0.1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>Sample Brooklyn Project io.cloudsoft.usergrid:brooklyn-usergrid v0.1.0-SNAPSHOT</name>
+  <name>Brooklyn Usergrid Project io.cloudsoft.usergrid:brooklyn-usergrid v0.1.0-SNAPSHOT</name>
   <description>
-        Sample optional description goes here.
-    </description>
-
-<!-- Optional metadata (commented out in this sample) 
-
-  <url>https://github.com/sample/sample</url>
-
-  <licenses>
-    <license>
-      <name>The Apache Software License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
-
-  <developers>
-    <developer>
-      <name>Sample Project Committers</name>
-    </developer>
-  </developers>
-
-  <scm>
-    <connection>scm:git:git://github.com/sample/sample</connection>
-    <developerConnection>scm:git:git@github.com:sample/sample.git</developerConnection>
-    <url>http://github.com/sample/sample</url>
-  </scm>
-
-  -->
+      This project facilitates the automated deployment of Apache Usergrid
+  </description>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
