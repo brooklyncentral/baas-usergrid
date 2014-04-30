@@ -97,6 +97,14 @@
   </repositories>
 
   <build>
+    <resources>
+        <resource>
+            <directory>src/main/resources/resources</directory>
+        </resource>
+        <resource>
+            <directory>src/main/resources</directory>
+        </resource>
+    </resources>
     <testSourceDirectory>src/test/java</testSourceDirectory>
     <testResources>
       <testResource>

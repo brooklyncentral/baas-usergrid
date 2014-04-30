@@ -18,5 +18,5 @@ fi
 
 $JAVA -Xms256m -Xmx1024m -XX:MaxPermSize=1024m \
     -classpath "conf/:*:lib/*" \
-    io.cloudsoft.usergrid.SampleMain \
+    io.cloudsoft.usergrid.UsergridMain \
     "$@"

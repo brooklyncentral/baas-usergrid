@@ -3,11 +3,15 @@ services:
 - serviceType: io.cloudsoft.usergrid.UsergridTomcatServer
   brooklyn.config:
     version: 7.0.53
+#    TODO: Awaiting reply from dev@usergrid.incubator.apache.org regarding which .war to use 
+#          Currently, ROOT.war has to be build from source and added to src/main/resources
+#    wars.root: http://search.maven.org/remotecontent?filepath=org/usergrid/usergrid-rest/0.0.27.1/usergrid-rest-0.0.27.1.war
     wars.root: classpath://ROOT.war
     usergridPropertiesTemplateUrl: classpath://usergrid-basic.properties
     cassandraUrl: $brooklyn:component("theCassandraNode").attributeWhenReady("datastore.url") 
 - serviceType: brooklyn.entity.nosql.cassandra.CassandraNode
   id: theCassandraNode
+
 location: localhost
 ## Replace the line above with the following to deploy to softlayer
 #location:
