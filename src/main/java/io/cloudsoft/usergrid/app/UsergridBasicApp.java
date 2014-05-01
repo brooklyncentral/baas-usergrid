@@ -6,6 +6,9 @@ import io.cloudsoft.usergrid.UsergridTomcatServer;
 import java.util.Collection;
 
 import brooklyn.catalog.Catalog;
+import brooklyn.catalog.CatalogConfig;
+import brooklyn.config.ConfigKey;
+import brooklyn.entity.basic.ConfigKeys;
 import brooklyn.entity.basic.SoftwareProcess;
 import brooklyn.entity.database.DatastoreMixins;
 import brooklyn.entity.nosql.cassandra.CassandraNode;
@@ -22,21 +25,22 @@ import com.google.common.base.Preconditions;
 )
 public class UsergridBasicApp extends AbstractUsergridApplication {
     
+    @CatalogConfig(label="Properties template URL")
+    public static final ConfigKey<String> PROPERTIES_TEMPLATE_URL = ConfigKeys.newStringConfigKey("usergrid.app.basic.properties.url", 
+        "Properties file freemarker template URL", 
+        "classpath://usergrid-basic.properties");
+    
     @Override
     public void init() {
         setDisplayName("Usergrid basic (2-host) deployment");
         
         CassandraNode cassandraNode = addChild(EntitySpec.create(CassandraNode.class));
-        String propertiesUrl = getConfig(UsergridTomcatServer.USERGRID_PROPERTIES_TEMPLATE_URL);
-        if (propertiesUrl == null) {
-            propertiesUrl = "classpath://usergrid-basic.properties";
-        }
         addChild(EntitySpec.create(UsergridTomcatServer.class)
             .configure(UsergridTomcatServer.CASSANDRA_URL, 
                 DependentConfiguration.attributeWhenReady(cassandraNode, DatastoreMixins.DATASTORE_URL))
             .configure(SoftwareProcess.SUGGESTED_VERSION, "7.0.53")
-            .configure(UsergridTomcatServer.USERGRID_PROPERTIES_TEMPLATE_URL, propertiesUrl)
-            .configure(UsergridTomcatServer.ROOT_WAR, "http://search.maven.org/remotecontent?filepath=org/usergrid/usergrid-rest/0.0.27.1/usergrid-rest-0.0.27.1.war"));
+            .configure(UsergridTomcatServer.USERGRID_PROPERTIES_TEMPLATE_URL, getConfig(PROPERTIES_TEMPLATE_URL))
+            .configure(UsergridTomcatServer.ROOT_WAR, "classpath://ROOT.war"));
     }
     
     @Override

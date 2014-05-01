@@ -16,7 +16,7 @@ services:
 - serviceType: brooklyn.entity.nosql.cassandra.CassandraDatacenter
   id: theCassandraNode
   brooklyn.config:
-    initialSize: 3
+    initialSize: 1
 
 location: localhost
 

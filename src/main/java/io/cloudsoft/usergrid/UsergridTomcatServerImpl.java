@@ -12,6 +12,7 @@ import brooklyn.event.feed.http.HttpValueFunctions;
 import brooklyn.location.access.BrooklynAccessUtils;
 import brooklyn.util.text.Strings;
 import brooklyn.util.text.TemplateProcessor;
+import brooklyn.util.time.Duration;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableMap;
@@ -42,7 +43,9 @@ public class UsergridTomcatServerImpl extends TomcatServerImpl implements Usergr
             throw new IllegalStateException("Either cassandra url or datacenter must be set, but not both");
         }
         if (url == null) {
-            Entities.waitForServiceUp(dataCenter);
+            // This should only take a couple of minutes, but may take longer than the default 2 minutes
+            // specified in BrooklynConfigKeys.START_TIMEOUT
+            Entities.waitForServiceUp(dataCenter, Duration.seconds(15 * 60));
             List<String> nodes = dataCenter.getAttribute(CassandraDatacenter.CASSANDRA_CLUSTER_NODES);
             return Joiner.on(",").join(nodes);
         } else {
