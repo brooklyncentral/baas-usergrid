@@ -26,9 +26,9 @@ import com.google.common.base.Preconditions;
 public class UsergridClusteredApp extends AbstractUsergridApplication {
 
     @CatalogConfig(label="Number of Cassandra Nodes")
-    public static final ConfigKey<Integer> CASSANDRA_NODES = ConfigKeys.newIntegerConfigKey("usergrid.app.clustered.cassandra.nodes", "Number of Cassandra nodes", 3);
+    public static final ConfigKey<Integer> CASSANDRA_NODES = ConfigKeys.newIntegerConfigKey("usergrid.app.clustered.cassandra.nodes", "Number of Cassandra nodes", 1);
     @CatalogConfig(label="Number of Tomcat Nodes")
-    public static final ConfigKey<Integer> TOMCAT_NODES = ConfigKeys.newIntegerConfigKey("usergrid.app.clustered.tomcat.nodes", "Number of Tomcat nodes", 1);
+    public static final ConfigKey<Integer> TOMCAT_NODES = ConfigKeys.newIntegerConfigKey("usergrid.app.clustered.tomcat.nodes", "Number of Tomcat nodes", 3);
     @CatalogConfig(label="Properties template URL")
     public static final ConfigKey<String> PROPERTIES_TEMPLATE_URL = ConfigKeys.newStringConfigKey("usergrid.app.clustered.properties.url", 
         "Properties file freemarker template URL", 
