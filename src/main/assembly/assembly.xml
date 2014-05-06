@@ -43,6 +43,20 @@
                 <include>**</include>
             </includes>
         </fileSet>
+        <fileSet>
+            <directory>src/main/resources/yaml</directory>
+            <outputDirectory>yaml</outputDirectory>
+            <includes>
+                <include>*.yaml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>src/main/resources/resources</directory>
+            <outputDirectory>resources</outputDirectory>
+            <includes>
+                <include>*.properties</include>
+            </includes>
+        </fileSet>
         <!-- adds jar package to the root directory of zip package -->
         <fileSet>
             <directory>target</directory>

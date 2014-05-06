@@ -1,0 +1,33 @@
+name: Usergrid basic (2-host) deployment
+services:
+- serviceType: io.cloudsoft.usergrid.UsergridTomcatServer
+  brooklyn.config:
+    version: 7.0.53
+#    TODO: Awaiting reply from dev@usergrid.incubator.apache.org regarding which .war to use 
+#          Currently, ROOT.war has to be build from source and added to src/main/resources
+#    wars.root: http://search.maven.org/remotecontent?filepath=org/usergrid/usergrid-rest/0.0.27.1/usergrid-rest-0.0.27.1.war
+    wars.root: classpath://ROOT.war
+    usergridPropertiesTemplateUrl: classpath://usergrid-basic.properties
+    cassandraUrl: $brooklyn:component("theCassandraNode").attributeWhenReady("datastore.url") 
+- serviceType: brooklyn.entity.nosql.cassandra.CassandraNode
+  id: theCassandraNode
+
+location: localhost
+
+## Replace the line above with the following to deploy to softlayer
+
+#location:
+#  jclouds:softlayer:
+#    region: ams01 # Amsterdam
+## NOTE: You will also need the following lines in your ~/.brooklyn/brooklyn.properties
+## brooklyn.location.jclouds.softlayer.identity=<your softlayer login name>
+## brooklyn.location.jclouds.softlayer.credential=<your softlayer authentication key>
+
+## Or to Amazon EC2
+
+#location:
+#  jclouds:aws-ec2:
+#    region: us-west-1
+## NOTE: You will also need the following lines in your ~/.brooklyn/brooklyn.properties
+## brooklyn.location.jclouds.aws-ec2.identity=<your aws access key id>
+## brooklyn.location.jclouds.aws-ec2.credential=<your aws secret access key>

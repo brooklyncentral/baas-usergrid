@@ -15,7 +15,8 @@ public class UsergridTomcat7SshDriver extends Tomcat7SshDriver implements Usergr
     public void customize() {
         super.customize();
         String destFile = Os.mergePaths(getExpandedInstallDir(), "lib", "usergrid-custom.properties");
-        copyTemplate("classpath://usergrid-custom.properties", destFile);
+        String srcFile = entity.getConfig(UsergridTomcatServer.USERGRID_PROPERTIES_TEMPLATE_URL); 
+        copyTemplate(srcFile, destFile);
     }
     
 }
