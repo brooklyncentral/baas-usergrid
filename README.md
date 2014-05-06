@@ -23,22 +23,23 @@ The easiest way to get started is to start by downloading and extracting the bin
     % cd brooklyn-usergrid-0.1.0-SNAPSHOT-dist
     % ./start.sh launch
 
-This will launch the brooklyn console. Open the browser of your choice and navigate to http://localhost:8081. You will then 
-be presented with the option of starting a _Usergid basic (2-host) app_ or a _Usergrid clustered (multi-host) deployment_
+This will launch the brooklyn console. Open the browser of your choice and navigate to [http://localhost:8081](http://localhost:8081).
+You will then be presented with the option of starting a _Usergrid basic (2-node) app_ or a _Usergrid clustered (multi-node)
+deployment_
 
 #### <a name="basicDeployment"></a>Basic deployment
 The simplest deployment scenario is to deploy a single Cassandra instance and a single Tomcat server to your local machine.
-To do this, select _Usergrid basic (2-host) app_ and click _Next_
+To do this, select _Usergrid basic (2-node) app_ and click _Next_
 
 The next screen allows you to customize your deployment. The _usergrid-basic.properties_ file listed in the _Properties
 template URL_ section can be found the in resources folder, which is automatically added to the classpath. For now, let's
 stay with the default options and click _Finish_
 
-Brooklyn will now install and launch Cassandra and Tomcat to your local machine and launch usergid. Click on _Usergrid 
-basic (2-host) deployment_ and expand the Usergrid application in the applications list to view the progress
+Brooklyn will now install and launch Cassandra and Tomcat to your local machine and launch usergrid. Click on _Usergrid 
+basic (2-node) deployment_ and expand the Usergrid application in the applications list to view the progress
 
-Once the application is running, click on the UsergridTomcatServer and click on the link to http://localhost:8080/ to
-verify the application
+Once the application is running, click on the UsergridTomcatServer and click on the link to
+[http://localhost:8080/](http://localhost:8080) to verify the application
 
 Congratulations! You have successfully launched Apache Usergrid
 
@@ -46,7 +47,7 @@ To stop the application, select the Usergrid application in the application list
 and click _Invoke_
 
 You can also deploy Usergrid to a load-balanced Tomcat cluster and Cassandra cluster by choosing the _Usergrid clustered
-(multi-host) deployment_
+(multi-node) deployment_
 
 **N.B.**: When deploying to a single machine (e.g. localhost) it is not possible to deploy more
 than one Cassandra node. If you attempt to deploy more than one Cassandra node, you will see an error informing you that the
@@ -61,7 +62,7 @@ copy the YAML from one of the sample files, launch brooklyn, select the _YAML_ t
 in the YAML and click _Finish_. The YAML for the basic deployment is as follows:
 
 ````YAML
-name: Usergrid basic (2-host) deployment
+name: Usergrid basic (2-node) deployment
 services:
 - serviceType: io.cloudsoft.usergrid.UsergridTomcatServer
   brooklyn.config:
@@ -81,7 +82,7 @@ localhost, the value of the location key should simply be _localhost_
 
 In general, a Usergrid YAML deployment file will contain two services: a Usergrid Tomcat service and a Cassandra service.
 The serviceType is the fully-qualified classname of a java class on the classpath; in this case we are using the basic
-UsergridTomcatServer and CassandraNode
+`UsergridTomcatServer` and `CassandraNode`
 
 Additional configuration information is provided in the _brooklyn.config_ key. The settings provided in the YAML above as as
 follows:
@@ -109,7 +110,7 @@ available
 The usergrid-clustered YAML file introduces additional services and configuration:
 
 ````YAML
-name: Usergrid clustered (multi-host) deployment
+name: Usergrid clustered (multi-node) deployment
 services:
 - serviceType: brooklyn.entity.webapp.ControlledDynamicWebAppCluster
   brooklyn.config:
@@ -129,20 +130,23 @@ services:
 location: localhost
 ````
 
-In this instance, rather than deploying a single CassandraNode, Brooklyn will deploy a cluster of replicated Cassanra nodes.
+In this instance, rather than deploying a single `CassandraNode`, Brooklyn will deploy a cluster of replicated Cassanra nodes.
 The ````initialSize```` config key tells Brooklyn the number of Cassandra nodes to create. In a production environment, this
 should be three or more, however when deploying to localhost this is limited to one node
 
-Additionally, instead of deploying a single UsergridTomcatServer, Brooklyn will deploy a ControlledDynamicWebAppCluster.
+Additionally, instead of deploying a single `UsergridTomcatServer`, Brooklyn will deploy a `ControlledDynamicWebAppCluster`.
 This consists of an nginx load balancer, and a cluster of one or more servers. The type of server deployed is determined
-by the value of the ````memberSpec```` key. In this case we are providing an entitySpec for a UsergridTomcatServer. The 
-specification for the UsergridTomcatServer 
+by the value of the ````memberSpec```` key. In this case we are providing an entitySpec for a `UsergridTomcatServer`. The
+specification for the `UsergridTomcatServer` now includes the key ````cassandraDatacenter```` instead of 
+````cassandraUrl````, allowing Brooklyn to examine the datacenter and build a URL comprising the host names and addresses
+of all members of the cluster. Before compiling the URL, Brooklyn will wait for the datacenter to publish its `SERVICE_UP` sensor,
+indicating that all members have been provisioned
 
 #### <a name="cloudDeployment"></a>Deploying to the cloud
-In a production environment, you will usually be deploying Usergid to a cloud provider. In order to do this, you will need to
+In a production environment, you will usually be deploying Usergrid to a cloud provider. In order to do this, you will need to
 configure Brooklyn to use the identity and credential of your preferred cloud provider. This is usually done via the 
 brooklyn.properties file. To deploy to Softlayer or AWS using YAML, simply create an empty brooklyn.properties file at 
-~/.brooklyn/brooklyn.properties and add the following (you will need to replace the placeholders with your own credentials)
+`~/.brooklyn/brooklyn.properties` and add the following (you will need to replace the placeholders with your own credentials)
 
 ````bash
 # Softlayer
