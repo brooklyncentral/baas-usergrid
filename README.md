@@ -18,7 +18,7 @@ need to create an SSH key and configure access to your local machine. You can fi
 #### <a name="gettingStarted"></a>Getting started
 The easiest way to get started is to start by downloading and extracting the binaries. To do so follow these simple instructions:
 
-    % curl -o brooklyn-usergrid-0.1.0-SNAPSHOT-dist.tar.gz http://search.maven.org/remotecontent?filepath=io/cloudsoft/usergrid/brooklyn-usergrid/0.1.0-SNAPSHOT/brooklyn-usergrid-0.1.0-SNAPSHOT.tar.gz
+    % curl -L -o brooklyn-usergrid-0.1.0-SNAPSHOT-dist.tar.gz https://oss.sonatype.org/service/local/artifact/maven/redirect?r=snapshots\&g=io.cloudsoft.usergrid\&a=brooklyn-usergrid\&v=0.1.0-SNAPSHOT\&e=tar.gz\&c=dist
     % tar -zxf brooklyn-usergrid-0.1.0-SNAPSHOT-dist.tar.gz
     % cd brooklyn-usergrid-0.1.0-SNAPSHOT
     % ./start.sh launch
