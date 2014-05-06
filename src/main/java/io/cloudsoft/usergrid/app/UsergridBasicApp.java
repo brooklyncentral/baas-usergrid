@@ -19,8 +19,8 @@ import brooklyn.location.Location;
 import com.google.common.base.Preconditions;
 
 @Catalog(
-    name = "Usergrid basic (2-host) app",
-    description = "Deploys usergrid 2-host configuration",
+    name = "Usergrid basic (2-node) app",
+    description = "Deploys usergrid 2-node configuration",
     iconUrl = "classpath://usergrid.png"
 )
 public class UsergridBasicApp extends AbstractUsergridApplication {
@@ -32,7 +32,7 @@ public class UsergridBasicApp extends AbstractUsergridApplication {
     
     @Override
     public void init() {
-        setDisplayName("Usergrid basic (2-host) deployment");
+        setDisplayName("Usergrid basic (2-node) deployment");
         
         CassandraNode cassandraNode = addChild(EntitySpec.create(CassandraNode.class));
         addChild(EntitySpec.create(UsergridTomcatServer.class)

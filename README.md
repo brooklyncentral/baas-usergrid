@@ -20,7 +20,7 @@ The easiest way to get started is to start by downloading and extracting the bin
 
     % curl -o brooklyn-usergrid-0.1.0-SNAPSHOT-dist.tar.gz http://search.maven.org/remotecontent?filepath=io/cloudsoft/usergrid/brooklyn-usergrid/0.1.0-SNAPSHOT/brooklyn-usergrid-0.1.0-SNAPSHOT.tar.gz
     % tar -zxf brooklyn-usergrid-0.1.0-SNAPSHOT-dist.tar.gz
-    % cd brooklyn-usergrid-0.1.0-SNAPSHOT-dist
+    % cd brooklyn-usergrid-0.1.0-SNAPSHOT
     % ./start.sh launch
 
 This will launch the Brooklyn console. Open the browser of your choice and navigate to [http://localhost:8081](http://localhost:8081).
@@ -141,6 +141,9 @@ specification for the `UsergridTomcatServer` now includes the key ````cassandraD
 ````cassandraUrl````, allowing Brooklyn to examine the datacenter and build a URL comprising the host names and addresses
 of all members of the cluster. Before compiling the URL, Brooklyn will wait for the datacenter to publish its `SERVICE_UP` sensor,
 indicating that all members have been provisioned
+
+Once the application is running, click on the `ControlledDynamicWebAppCluster` and click on the link to 
+[http://localhost:8000/](http://localhost:8000) to verify the application
 
 #### <a name="cloudDeployment"></a>Deploying to the cloud
 In a production environment, you will usually be deploying Usergrid to a cloud provider. In order to do this, you will need to
