@@ -23,7 +23,7 @@ The easiest way to get started is to start by downloading and extracting the bin
     % cd brooklyn-usergrid-0.1.0-SNAPSHOT-dist
     % ./start.sh launch
 
-This will launch the brooklyn console. Open the browser of your choice and navigate to [http://localhost:8081](http://localhost:8081).
+This will launch the Brooklyn console. Open the browser of your choice and navigate to [http://localhost:8081](http://localhost:8081).
 You will then be presented with the option of starting a _Usergrid basic (2-node) app_ or a _Usergrid clustered (multi-node)
 deployment_
 
@@ -43,7 +43,7 @@ Once the application is running, click on the UsergridTomcatServer and click on 
 
 Congratulations! You have successfully launched Apache Usergrid
 
-To stop the application, select the Usergrid application in the application list, click on the _Effectors_ tab, select _Stop_ 
+To stop the application, select the Usergrid application in the application list, click on the _Effectors_ tab, select _Stop_,
 and click _Invoke_
 
 You can also deploy Usergrid to a load-balanced Tomcat cluster and Cassandra cluster by choosing the _Usergrid clustered
@@ -58,8 +58,8 @@ In addition to the basic and clustered deployments included in the catalog, it i
 compliant blueprints in YAML
 
 Sample YAML blueprints for the basic and clustered deployments are provided in the yaml directory. To deploy usergrid simply
-copy the YAML from one of the sample files, launch brooklyn, select the _YAML_ tab in the _Create Application_ modal, paste
-in the YAML and click _Finish_. The YAML for the basic deployment is as follows:
+copy the YAML from one of the sample files, launch Brooklyn, select the _YAML_ tab in the _Create Application_ modal, paste
+in the YAML, and click _Finish_. The YAML for the basic deployment is as follows:
 
 ````YAML
 name: Usergrid basic (2-node) deployment
@@ -75,16 +75,16 @@ services:
 location: localhost
 ````
 
-The _name_ key is simply the display name for the application which will be shown in the brooklyn web console. The _services_
-key describes the services that will be deployed by brooklyn and will be discussed further in this section. The _location_
+The `name` key is simply the display name for the application which will be shown in the Brooklyn web console. The `services`
+key describes the services that will be deployed by Brooklyn and will be discussed further in this section. The `location`
 key will be discussed further in the <a href="#cloudDeployment">Deploying to the cloud</a> section - when deploying to
-localhost, the value of the location key should simply be _localhost_
+localhost, the value of the location key should simply be `localhost`
 
 In general, a Usergrid YAML deployment file will contain two services: a Usergrid Tomcat service and a Cassandra service.
-The serviceType is the fully-qualified classname of a java class on the classpath; in this case we are using the basic
+The `serviceType` is the fully-qualified classname of a java class on the classpath; in this case we are using the basic
 `UsergridTomcatServer` and `CassandraNode`
 
-Additional configuration information is provided in the _brooklyn.config_ key. The settings provided in the YAML above as as
+Additional configuration information is provided in the `brooklyn.config` key. The settings provided in the YAML above as as
 follows:
 
 * ````version````: This will determine the version of Tomcat that will be downloaded and installed. **N.B.**: This is the
@@ -102,7 +102,7 @@ In [cloud deployments](#cloudDeployment) the address of the Cassandra node may n
 advance, so a placeholder is used which is replaced at the point when the properties file is deployed. The 
 ````$brooklyn.component("theCassandraNode")```` section of the value tells Brooklyn that the value should be read from the 
 component identified as _theCassandraNode_. This name should match the id given to the Cassandra node in the line ````id: 
-theCassandraNode````. The ````attributeWhenReady("datastore.url")```` tells brooklyn that it should read the value from the
+theCassandraNode````. The ````attributeWhenReady("datastore.url")```` tells Brooklyn that it should read the value from the
 _datastore.url_ attribute published by the node. If the attribute is not immediately available (for example if the machine is
 still being provisioned or Cassandra has not yet started) then Brooklyn will automatically wait until the attribute is 
 available
@@ -191,7 +191,7 @@ brooklyn.location.named.AWS\ West\ 1=aws-ec2:eu-west-1
 ````
 
 Once you have configured named locations, they will be available in the _Locations_ drop-down on the application customization
-screen. If you have changed your brooklyn.properties file after launching brooklyn, you will need to click the _Realod properties_
+screen. If you have changed your brooklyn.properties file after launching Brooklyn, you will need to click the _Realod properties_
 button on the home screen in order to make them available
 
 For other cloud providers, a sample brooklyn.properties file is available [here](http://brooklyncentral.github.io/use/guide/quickstart/brooklyn.properties)
