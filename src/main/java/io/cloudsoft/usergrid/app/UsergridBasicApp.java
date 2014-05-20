@@ -9,7 +9,6 @@ import brooklyn.catalog.Catalog;
 import brooklyn.catalog.CatalogConfig;
 import brooklyn.config.ConfigKey;
 import brooklyn.entity.basic.ConfigKeys;
-import brooklyn.entity.basic.SoftwareProcess;
 import brooklyn.entity.database.DatastoreMixins;
 import brooklyn.entity.nosql.cassandra.CassandraNode;
 import brooklyn.entity.proxying.EntitySpec;
@@ -38,7 +37,6 @@ public class UsergridBasicApp extends AbstractUsergridApplication {
         addChild(EntitySpec.create(UsergridTomcatServer.class)
             .configure(UsergridTomcatServer.CASSANDRA_URL, 
                 DependentConfiguration.attributeWhenReady(cassandraNode, DatastoreMixins.DATASTORE_URL))
-            .configure(SoftwareProcess.SUGGESTED_VERSION, "7.0.53")
             .configure(UsergridTomcatServer.USERGRID_PROPERTIES_TEMPLATE_URL, getConfig(PROPERTIES_TEMPLATE_URL))
             .configure(UsergridTomcatServer.ROOT_WAR, "classpath://ROOT.war"));
     }

@@ -9,7 +9,6 @@ import brooklyn.catalog.Catalog;
 import brooklyn.catalog.CatalogConfig;
 import brooklyn.config.ConfigKey;
 import brooklyn.entity.basic.ConfigKeys;
-import brooklyn.entity.basic.SoftwareProcess;
 import brooklyn.entity.group.Cluster;
 import brooklyn.entity.nosql.cassandra.CassandraDatacenter;
 import brooklyn.entity.proxying.EntitySpec;
@@ -45,7 +44,6 @@ public class UsergridClusteredApp extends AbstractUsergridApplication {
             .configure(ControlledDynamicWebAppCluster.INITIAL_SIZE, getConfig(TOMCAT_NODES))
             .configure(ControlledDynamicWebAppCluster.MEMBER_SPEC, EntitySpec.create(UsergridTomcatServer.class)
                 .configure(UsergridTomcatServer.CASSANDRA_DATACENTER, cassandraDatacenter)
-                .configure(SoftwareProcess.SUGGESTED_VERSION, "7.0.53")
                 .configure(UsergridTomcatServer.USERGRID_PROPERTIES_TEMPLATE_URL, getConfig(PROPERTIES_TEMPLATE_URL))
                 .configure(UsergridTomcatServer.ROOT_WAR, "classpath://ROOT.war")
         ));

@@ -2,7 +2,6 @@ name: Usergrid basic (2-node) deployment
 services:
 - serviceType: io.cloudsoft.usergrid.UsergridTomcatServer
   brooklyn.config:
-    version: 7.0.53
 #    TODO: Awaiting reply from dev@usergrid.incubator.apache.org regarding which .war to use 
 #          Currently, ROOT.war has to be build from source and added to src/main/resources
 #    wars.root: http://search.maven.org/remotecontent?filepath=org/usergrid/usergrid-rest/0.0.27.1/usergrid-rest-0.0.27.1.war
