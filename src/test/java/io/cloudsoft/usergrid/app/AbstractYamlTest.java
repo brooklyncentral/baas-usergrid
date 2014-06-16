@@ -23,8 +23,8 @@ import brooklyn.entity.basic.BrooklynTaskTags;
 import brooklyn.entity.basic.Entities;
 import brooklyn.entity.basic.EntityPredicates;
 import brooklyn.entity.rebind.RebindTestUtils;
+import brooklyn.entity.rebind.persister.PersistMode;
 import brooklyn.launcher.BrooklynLauncher;
-import brooklyn.launcher.PersistMode;
 import brooklyn.management.ManagementContext;
 import brooklyn.management.Task;
 import brooklyn.management.internal.LocalManagementContext;
@@ -81,7 +81,7 @@ public abstract class AbstractYamlTest {
         if (brooklynMgmt != null) Entities.destroyAll(brooklynMgmt);
         if (brooklynLauncher != null) brooklynLauncher.getServerDetails().getWebServer().stop();
         if (launcher != null) launcher.stopServers();
-        if (persistenceDir != null) Os.tryDeleteDirectory(persistenceDir);
+        if (persistenceDir != null) Os.deleteRecursively(persistenceDir);
     }
 
     protected Application rebind(Application origApp) throws Exception {
